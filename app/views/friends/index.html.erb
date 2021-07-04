@@ -1,0 +1,48 @@
+
+
+<% if user_signed_in? %>
+
+  <table class="table table-striped table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Linked in</th>
+        <th colspan></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @friends.each do |friend| %>
+      <% if friend.user == current_user %>
+        <tr>
+          <td>
+            <%= link_to friend.first_name + ' ' + friend.last_name, friend %>
+          </td>
+
+          <td><%= friend.email %></td>
+          <td><%= friend.phone %></td>
+          <td><%= friend.linked_in %></td>
+
+
+            <td><%= link_to 'Delete', friend, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger btn-sm' %></td>
+
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+<%= link_to 'New Friend', new_friend_path, class:"btn btn-secondary" %>
+<% else %>
+
+<h1>Welcome to your Friend Rolodex!!</h1><br/>
+<img src="https://i0.wp.com/blog.band.us/wp-content/uploads/2014/03/3122900531_8d3883f542_b.jpg?resize=600%2C554" alt="rolodex"><br/><br/>
+Click 'Friends' above to access your rolodex.<br/><br/>
+Click 'Add Friend' to get started, or add to your existing rolodex!
+
+
+<% end %>
